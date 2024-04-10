@@ -9,10 +9,16 @@ form {
   border-radius: 20px;
 }
 
-.is-invalid{
+input.is-invalid{
   border-color: red;
 }
 
-.error{
+div.error{
+  background-color: red;
+  padding: 2px;
+}
+
+label.required::after  {
+  content:" *";
   color: red;
 }

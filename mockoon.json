@@ -68,7 +68,7 @@
         },
         {
           "uuid": "c7d376c9-4492-4de6-ace7-279787268e55",
-          "body": "{\n  \"error\": \"Invalid username or password\"\n}",
+          "body": "{\n  \"message\": \"Invalid username or password\"\n}",
           "latency": 0,
           "statusCode": 401,
           "label": "",
@@ -129,7 +129,7 @@
       "responses": [
         {
           "uuid": "73f55286-c335-4eb8-b2cc-8cea0ea04ce9",
-          "body": "{\n  \"message\": \"A message\"\n}",
+          "body": "{\n  \"message\": \"The user has been registered!\"\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -165,13 +165,6 @@
             },
             {
               "target": "body",
-              "modifier": "email",
-              "value": "pedro@gmail.com",
-              "invert": false,
-              "operator": "equals"
-            },
-            {
-              "target": "body",
               "modifier": "password",
               "value": "1234",
               "invert": false,
@@ -194,7 +187,7 @@
         },
         {
           "uuid": "68f2d895-7ccd-44b1-8e85-749b2b2ee3ab",
-          "body": "{\n  \"error\": \"Invalid information\"\n}",
+          "body": "{\n  \"message\": \"Invalid information\"\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "",

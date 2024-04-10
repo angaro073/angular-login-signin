@@ -21,6 +21,7 @@ import { UserService } from '../user.service';
 export class RegisterComponent {
   protected form: FormGroup;
   protected submitted: boolean = false;
+  protected error: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,8 +30,9 @@ export class RegisterComponent {
   ){
     this.form = this.formBuilder.group({
       username: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.email]],
       password: ['', Validators.required],
+      passwordConfirm: ['', Validators.required],
     });
   }
 
@@ -44,20 +46,18 @@ export class RegisterComponent {
       this.userService
       .register({
         username: this.form.value['username'],
-        password: this.form.value['password']
+        email: this.form.value['email'],
+        password: this.form.value['password'],
+        passwordConfirm: this.form.value['passwordConfirm']
       })
       .subscribe({
-        // next: (user) => {
-        //   if (user.id) {
-        //     sessionStorage.setItem('userId', user.id);
-        //   }
-        // },
         complete: () => {
           console.log(`The user ${this.form.value['username']} has been registered!`);
-          this.router.navigateByUrl('/home');
+          this.router.navigateByUrl('/login');
         },
         error: (response) => {
-          console.log(`ERROR(${response.status}): ${response.message}`);
+          console.log(`ERROR(${response.status}): ${response.error.message}`);
+          this.error = response.error.message;
         }
       });
     }

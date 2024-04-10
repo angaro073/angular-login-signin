@@ -3,8 +3,11 @@
   (ngSubmit)="onSubmit()"
 >
   <h2>Sign Up</h2>
+    @if (this.error) {
+      <div class="error">{{ error }}</div>
+    }
     <!-- username -->
-    <label>Username</label>
+    <label class="required">Username</label>
     <input
       formControlName="username"
       type="text"
@@ -33,7 +36,7 @@
       }
     }
     <!-- password -->
-    <label>Password</label>
+    <label class="required">Password</label>
     <input
       formControlName="password"
       type="password"
@@ -45,6 +48,21 @@
     @if (submitted && control['password'].errors) {
       @if (control['password'].errors['required']) {
         <div class="error">password is required</div>
+      }
+    }
+    <!-- passwordConfirm -->
+    <label class="required">Confirm password</label>
+    <input
+      formControlName="passwordConfirm"
+      type="password"
+      [ngClass]="{
+        'is-invalid': submitted && control['passwordConfirm'].errors,
+      }"
+      required
+    >
+    @if (submitted && control['passwordConfirm'].errors) {
+      @if (control['passwordConfirm'].errors['required']) {
+        <div class="error">password confirmation is required</div>
       }
     }
     <button type="submit">Sign Up</button>

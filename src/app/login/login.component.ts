@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
-
-import { Router, RouterLink } from '@angular/router';
-
 import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
-
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
-import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +18,7 @@ import { User } from '../user';
 export class LoginComponent {
   protected form: FormGroup;
   protected submitted: boolean = false;
+  protected error: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,8 +26,8 @@ export class LoginComponent {
     private userService: UserService,
   ){
     this.form = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 
@@ -41,21 +38,11 @@ export class LoginComponent {
   onSubmit(): void {
     this.submitted = true;
     if (this.form.valid) {
-//
-console.log(`
-  Username: ${this.form.value['username']}
-  Password: ${this.form.value['password']}
-`);
-//
-      let user: User = {
+      this.userService
+      .login({
         username: this.form.value['username'],
         password: this.form.value['password'],
-      };
-//
-console.log(JSON.stringify(user, null, 2));
-//
-      this.userService
-      .login(user)
+      })
       .subscribe({
         next: (data) => {
           console.log(`${data.username} are login...`);
@@ -65,10 +52,8 @@ console.log(JSON.stringify(user, null, 2));
           this.router.navigateByUrl('/home');
         },
         error: (response) => {
-//
-console.log(JSON.stringify(response, null, 2));
-//
-          console.log(`ERROR(${response.status}): ${response.message}`);
+          console.log(`ERROR(${response.status}): ${response.error.message}`);
+          this.error = response.error.message;
         }
       });
     }

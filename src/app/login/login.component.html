@@ -3,7 +3,10 @@
   (ngSubmit)="onSubmit()"
 >
   <h2>Log in</h2>
-    <label>Username</label>
+    @if (this.error) {
+      <div class="error">{{ error }}</div>
+    }
+    <label class="required">Username</label>
     <input
       formControlName="username"
       type="text"
@@ -17,7 +20,7 @@
         <div class="error">username is required</div>
       }
     }
-    <label>Password</label>
+    <label class="required">Password</label>
     <input
       formControlName="password"
       type="password"
