@@ -6,7 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
 
 import { UserService } from '../user.service';
-
+import { passwordValidator } from './password-validator';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -33,7 +33,7 @@ export class RegisterComponent {
       email: ['', [Validators.email]],
       password: ['', Validators.required],
       passwordConfirm: ['', Validators.required],
-    });
+    }, {validators: passwordValidator});
   }
 
   protected get control(): { [key: string ]: AbstractControl} {

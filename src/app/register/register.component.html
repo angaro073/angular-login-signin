@@ -60,11 +60,15 @@
       }"
       required
     >
-    @if (submitted && control['passwordConfirm'].errors) {
-      @if (control['passwordConfirm'].errors['required']) {
+    @if (submitted) {
+      @if (control['passwordConfirm'].errors?.['required']) {
         <div class="error">password confirmation is required</div>
       }
+			@if (this.form.errors?.['unconfirmed']) {
+        <div class="error">password is unconfirmed</div>
+			}
     }
+		
     <button type="submit">Sign Up</button>
     <p>If you have an account with us <a routerLink="/login">login here</a></p>
 </form>
