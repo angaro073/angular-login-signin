@@ -1,0 +1,19 @@
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  margin-top: 32px;
+  padding: 50px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 20px;
+}
+
+.is-invalid{
+  border-color: red;
+}
+
+.error{
+  color: red;
+}
+

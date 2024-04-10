@@ -1,0 +1,239 @@
+{
+  "uuid": "bfd53a3b-2f6b-4648-ad08-30e20287b3d1",
+  "lastMigration": 32,
+  "name": "Mock login",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "504681c4-4c34-4a65-af4b-9396c257e811",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "login",
+      "responses": [
+        {
+          "uuid": "0b5bdc0a-c867-4b45-bd00-2c5e37919010",
+          "body": "{\n  \"id\": \"1\",\n  \"username\": \"{{body 'username'}}\",\n  \"email\": \"pedro@gmail.com\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "username",
+              "value": "Pedro",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "1234",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "c7d376c9-4492-4de6-ace7-279787268e55",
+          "body": "{\n  \"error\": \"Invalid username or password\"\n}",
+          "latency": 0,
+          "statusCode": 401,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "username",
+              "value": "Pedro",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "1234",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    },
+    {
+      "uuid": "c28c96f3-58f9-4f4a-8844-efaec3640db0",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "register",
+      "responses": [
+        {
+          "uuid": "73f55286-c335-4eb8-b2cc-8cea0ea04ce9",
+          "body": "{\n  \"message\": \"A message\"\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "username",
+              "value": "Pedro",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "pedro@gmail.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "1234",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "passwordConfirm",
+              "value": "1234",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        },
+        {
+          "uuid": "68f2d895-7ccd-44b1-8e85-749b2b2ee3ab",
+          "body": "{\n  \"error\": \"Invalid information\"\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "1234",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "passwordConfirm",
+              "value": "1234",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "pedro@gmail.com",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "username",
+              "value": "Pedro",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "504681c4-4c34-4a65-af4b-9396c257e811"
+    },
+    {
+      "type": "route",
+      "uuid": "c28c96f3-58f9-4f4a-8844-efaec3640db0"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
