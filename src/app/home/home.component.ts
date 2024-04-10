@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '../user';
 
 @Component({
   selector: 'app-home',
@@ -9,4 +10,12 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+	user: User | null;
+
+	constructor() {
+		let data = sessionStorage.getItem("user");
+		this.user = data ? JSON.parse(data) as User : null;
+		console.log(data);
+		console.log(JSON.stringify(this.user));
+	}
 }
