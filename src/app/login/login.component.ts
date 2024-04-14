@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators, AbstractControlOptions } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
+import { BackendLoginValidator } from './backend-validation.validator';
+import { Subject, filter, startWith, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,27 +19,42 @@ import { UserService } from '../user.service';
 })
 export class LoginComponent {
   protected form: FormGroup;
+	protected formSubmitSubject$: Subject<any>;
   protected submitted: boolean = false;
-  protected error: string | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
+		private backendLoginValidator: BackendLoginValidator
   ){
     this.form = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
-    });
+    }, {
+				asyncValidators: backendLoginValidator.validate.bind(this),
+				updateOn: "submit"
+		} as AbstractControlOptions);
+
+		this.formSubmitSubject$ = new Subject();
+		this.formSubmitSubject$
+		.pipe(
+			switchMap((value, index) => 
+				this.form.statusChanges.pipe(
+					startWith(this.form.status),
+					filter(status => status !== 'PENDING'),
+					take(1)
+				)
+			),
+			filter(status => status === 'VALID')
+		).subscribe(() => this.submitForm());
   }
 
   protected get control(): { [key: string ]: AbstractControl} {
     return this.form.controls;
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-    if (this.form.valid) {
+  submitForm(): void {
       this.userService
       .login({
         username: this.form.value['username'],
@@ -51,11 +68,6 @@ export class LoginComponent {
         complete: () => {
           this.router.navigateByUrl('/home');
         },
-        error: (response) => {
-          console.log(`ERROR(${response.status}): ${response.error.message}`);
-          this.error = response.error.message;
-        }
       });
     }
   }
-}

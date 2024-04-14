@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -17,5 +17,9 @@ export class UserService {
 
 	register(user: User): Observable<User> {
 		return this.httpClient.post<User>(`${this.apiURL}/register`, user);
+	}
+
+	userCanBeLogged(user: User): Observable<boolean> {
+		return of(user.username === "Pedro" && user.password === "1234");
 	}
 }

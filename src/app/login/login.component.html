@@ -1,11 +1,14 @@
 <form
   [formGroup]="form"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="this.formSubmitSubject$.next('')"
 >
   <h2>Log in</h2>
-    @if (this.error) {
-      <div class="error">{{ error }}</div>
+    @if (this.form.errors?.['wrongCredentials']) {
+      <div class="error">Invalid username or password</div>
     }
+		@if(this.form.pending) {
+			<div>Trying to log the user...</div>
+		}
     <label class="required">Username</label>
     <input
       formControlName="username"
