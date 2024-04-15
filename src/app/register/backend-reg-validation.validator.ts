@@ -13,7 +13,6 @@ export class BackendRegisterValidator implements AsyncValidator {
 	}
 
 	validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
-		console.log("Doing async validation");
 		const userName = control.get("username")?.value as string;
 		const userEmail = control.get("email")?.value as string | undefined;
 		const userPassword = control.get("password")?.value as string;

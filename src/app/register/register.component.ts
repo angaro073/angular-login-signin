@@ -77,11 +77,7 @@ export class RegisterComponent implements OnDestroy {
 			})
 			.subscribe({
 				complete: () => {
-					console.log(`The user ${this.form.value['username']} has been registered!`);
 					this.router.navigateByUrl('/login');
-				},
-				error: (response) => {
-					console.log(`ERROR(${response.status}): ${response.error.message}`);
 				}
 			});
 	}

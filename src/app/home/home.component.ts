@@ -15,7 +15,5 @@ export class HomeComponent {
 	constructor() {
 		let data = sessionStorage.getItem("user");
 		this.user = data ? JSON.parse(data) as User : null;
-		console.log(data);
-		console.log(JSON.stringify(this.user));
 	}
 }

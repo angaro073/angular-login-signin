@@ -72,7 +72,6 @@ export class LoginComponent implements OnDestroy {
 			})
 			.subscribe({
 				next: (data) => {
-					console.log(`${data.username} are login...`);
 					sessionStorage.setItem('user', JSON.stringify(data));
 				},
 				complete: () => {
