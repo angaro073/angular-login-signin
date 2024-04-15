@@ -43,10 +43,10 @@ export class RegisterComponent implements OnDestroy {
 			* 
 			* When some validation fails, it is inserted inside the 'errors' property of the control or form.
 			*/
-			username: new FormControl({value: '', disabled: false}, {updateOn: 'blur'} ), //* When the user tabs inside the control, the validation is triggered.
+			username: new FormControl({value: '', disabled: false}, {updateOn: 'blur'} ), //* When the user goes away from the control, the validation is triggered.
 			email: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ), //* When the user changes the control value, the validation is triggered.
-			password: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ),
-			passwordConfirm: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ),
+			password: new FormControl({value: '', disabled: false}, {updateOn: 'blur'} ),
+			passwordConfirm: new FormControl({value: '', disabled: false}, {updateOn: 'blur'} ),
 		}, {
 			validators: passwordValidator,
 			asyncValidators: backendRegisterValidator.validate.bind(this),
