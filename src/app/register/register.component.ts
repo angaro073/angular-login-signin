@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators, AbstractControlOptions, FormControlStatus } from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators, AbstractControlOptions, FormControlStatus, FormControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { passwordValidator } from './password-validator';
 import { Observable, Subject, Subscription, filter, startWith, switchMap, take } from 'rxjs';
@@ -32,15 +32,31 @@ export class RegisterComponent implements OnDestroy {
 		private backendRegisterValidator: BackendRegisterValidator
 	) {
 		this.form = this.formBuilder.group({
-			username: ['', Validators.required],
-			email: ['', [Validators.email]],
-			password: ['', Validators.required],
-			passwordConfirm: ['', Validators.required],
+			/*  
+			* What updateOn seems to do, is validating the whole form again when the event configured 
+			* for the control or the form happens. When the form is in VALID state, submitting it won't 
+			* trigger the validation again. The validation follows this order:
+			* 
+			* 1) Synchronous validation is done.
+			* 2) If the synchronous validation goes well, asynchronous validation is done (the form enters the PENDING state).
+			* 3) If the asynchronous validation goes well, the form enters the VALID state.
+			* 
+			* When some validation fails, it is inserted inside the 'errors' property of the control or form.
+			*/
+			username: new FormControl({value: '', disabled: false}, {updateOn: 'blur'} ), //* When the user tabs inside the control, the validation is triggered.
+			email: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ), //* When the user changes the control value, the validation is triggered.
+			password: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ),
+			passwordConfirm: new FormControl({value: '', disabled: false}, {updateOn: 'change'} ),
 		}, {
 			validators: passwordValidator,
 			asyncValidators: backendRegisterValidator.validate.bind(this),
-			updateOn: 'submit'
+			updateOn: 'submit' //* When the user submits the form, the validation is triggered.
 		} as AbstractControlOptions);
+		this.control['username'].addValidators([Validators.required]);
+		this.control['password'].addValidators([Validators.required]);
+		this.control['passwordConfirm'].addValidators([Validators.required]);
+		this.control['email'].addValidators([Validators.email]);
+
 
 		this.formSubmitSubject$ = new Subject();
 
