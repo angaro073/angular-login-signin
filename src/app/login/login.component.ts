@@ -42,12 +42,15 @@ export class LoginComponent {
 			switchMap((value, index) => 
 				this.form.statusChanges.pipe(
 					startWith(this.form.status),
-					filter(status => status !== 'PENDING'),
+					filter(status => status === 'VALID' || status === 'INVALID'),
 					take(1)
 				)
 			),
-			filter(status => status === 'VALID')
-		).subscribe(() => this.submitForm());
+		).subscribe((status) => {
+			this.submitted = true;
+			if (status === 'VALID') 
+				this.submitForm();
+		});
   }
 
   protected get control(): { [key: string ]: AbstractControl} {
