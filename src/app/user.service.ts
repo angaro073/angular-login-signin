@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, delay, of } from 'rxjs';
 import { User } from './user';
 
 @Injectable({
@@ -20,6 +20,7 @@ export class UserService {
 	}
 
 	userCanBeLogged(user: User): Observable<boolean> {
-		return of(user.username === "Pedro" && user.password === "1234");
+		//* Simulation of an asynchronous backend call which takes a bit of time.
+		return of(user.username === "Pedro" && user.password === "1234").pipe(delay(2000));
 	}
 }
