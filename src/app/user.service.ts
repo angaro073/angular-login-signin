@@ -32,9 +32,9 @@ export class UserService {
 		const requiredFieldsCondition =  
 		user.username === "Pedro" 
 		&& user.password === "1234" 
-		&& user.email === "pedro@gmail.com";
+		&& user.passwordConfirm === user.password;
 		const optionalFieldsCondition = user.email ? (user.email === "pedro@gmail.com") : true;
 
-		return of(requiredFieldsCondition, optionalFieldsCondition).pipe(delay(2000));
+		return of(requiredFieldsCondition && optionalFieldsCondition).pipe(delay(2000));
 	}
 }
