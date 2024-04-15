@@ -21,17 +21,20 @@ export class UserService {
 
 	userCanBeLogged(user: User): Observable<boolean> {
 		//* Simulation of an asynchronous backend call which takes a bit of time.
-		return of(user.username === "Pedro" 
+		return of(
+		user.username === "Pedro" 
 		&& user.password === "1234")
 		.pipe(delay(2000));
 	}
 
 	userCanBeRegistered(user: User): Observable<boolean> {
 		//* Simulation of an asynchronous backend call which takes a bit of time.
-		return of(user.username === "Pedro" 
+		const requiredFieldsCondition =  
+		user.username === "Pedro" 
 		&& user.password === "1234" 
-		&& user.email === "pedro@gmail.com" 
-		&& user.passwordConfirm === user.password)
-		.pipe(delay(2000));
+		&& user.email === "pedro@gmail.com";
+		const optionalFieldsCondition = user.email ? (user.email === "pedro@gmail.com") : true;
+
+		return of(requiredFieldsCondition, optionalFieldsCondition).pipe(delay(2000));
 	}
 }

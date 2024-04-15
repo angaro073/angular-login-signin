@@ -1,6 +1,6 @@
 <form
   [formGroup]="form"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="this.formSubmitSubject$.next('')"
 >
   <h2>Sign Up</h2>
 		@if (this.form.errors?.['wrongCredentials']) {

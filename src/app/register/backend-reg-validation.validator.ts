@@ -15,7 +15,7 @@ export class BackendRegisterValidator implements AsyncValidator {
 	validate(control: AbstractControl<any, any>): Observable<ValidationErrors | null> {
 		console.log("Doing async validation");
 		const userName = control.get("username")?.value as string;
-		const userEmail = control.get("email")?.value as string
+		const userEmail = control.get("email")?.value as string | undefined;
 		const userPassword = control.get("password")?.value as string;
 		const confirmedPassword = control.get("passwordConfirm")?.value as string;
 		return this.userService.userCanBeRegistered({
