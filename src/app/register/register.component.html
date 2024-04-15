@@ -3,9 +3,12 @@
   (ngSubmit)="onSubmit()"
 >
   <h2>Sign Up</h2>
-    @if (this.error) {
-      <div class="error">{{ error }}</div>
+		@if (this.form.errors?.['wrongCredentials']) {
+      <div class="error">Invalid data</div>
     }
+		@if(this.form.pending) {
+			<div>Trying to register the user...</div>
+		}
     <!-- username -->
     <label class="required">Username</label>
     <input

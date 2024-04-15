@@ -21,6 +21,17 @@ export class UserService {
 
 	userCanBeLogged(user: User): Observable<boolean> {
 		//* Simulation of an asynchronous backend call which takes a bit of time.
-		return of(user.username === "Pedro" && user.password === "1234").pipe(delay(2000));
+		return of(user.username === "Pedro" 
+		&& user.password === "1234")
+		.pipe(delay(2000));
+	}
+
+	userCanBeRegistered(user: User): Observable<boolean> {
+		//* Simulation of an asynchronous backend call which takes a bit of time.
+		return of(user.username === "Pedro" 
+		&& user.password === "1234" 
+		&& user.email === "pedro@gmail.com" 
+		&& user.passwordConfirm === user.password)
+		.pipe(delay(2000));
 	}
 }
