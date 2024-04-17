@@ -3,7 +3,7 @@ import { NgClass } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators, AbstractControlOptions, FormControlStatus } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../user.service';
-import { BackendLoginValidator } from './backend-validation.validator';
+import { BackendLoginValidator } from './backend-login-validation.validator';
 import { Observable, Subject, Subscription, filter, startWith, switchMap, take } from 'rxjs';
 
 @Component({
