@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, AbstractControl, Validators, AbstractControlOptions, FormControlStatus } from '@angular/forms';
-import { UserService } from '../user.service';
+import { UserService } from '../api/user/user.service';
 import { passwordValidator } from './password-validator';
 import { Observable, Subject, Subscription, filter, startWith, switchMap, take } from 'rxjs';
 import { BackendRegisterValidator } from './backend-reg-validation.validator';

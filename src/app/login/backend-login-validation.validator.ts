@@ -1,6 +1,6 @@
 import { AbstractControl, AsyncValidator, ValidationErrors } from "@angular/forms";
 import { Observable, map } from "rxjs";
-import { UserService } from "../user.service";
+import { UserService } from "../api/user/user.service";
 import { Injectable } from "@angular/core";
 
 @Injectable({
